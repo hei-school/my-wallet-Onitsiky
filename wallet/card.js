@@ -10,10 +10,10 @@ function Card (number ,name, balance) {
 }
 
 export function handleCards() {
-    const cardsMenu =  "\    Choisissez une action à faire: \n \     1. Ajouter une carte\n \     2. Retirer une carte\n \     3. Voir les cartes\n" 
+    const cardsMenu =  "\    Choisissez une action à faire: \n \     1. Ajouter une carte\n \     2. Retirer une carte\n \     3. Voir les cartes\n \     4. Recharger une carte\n" 
     + "Votre choix: "; 
     const wrongChoice = "\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n"
-    const validChoice = [1, 2, 3]
+    const validChoice = [1, 2, 3, 4]
     const choice = +readline.question(cardsMenu);
     if (!validChoice.includes(choice)){
         console.log(wrongChoice);
@@ -26,6 +26,8 @@ export function handleCards() {
                 removeCard();
             case 3:
                 listCards();
+            case 4:
+                refillCard();
         }
     }
 }
@@ -59,4 +61,28 @@ function removeCard() {
         console.log("\n    Carte retirée avec succès.\n");
         showMenu();
     }
+}
+
+function refillCard() {
+    const number = readline.question("\    Veuillez entrer le numéro de votre carte: ");
+    const isPresent = cards.some(card => card.number.toLowerCase() == number.toLowerCase());
+    if(!isPresent){
+        console.log("\n    La carte spécifiée n'existe pas.");
+        refillCard();
+    }
+    const montant = +readline.question("\    Veuillez entrer le montant à ajouter: ");
+    if(montant < 0) {
+        console.log("\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
+        refillCard();
+    } else{
+        cards = cards.map(card => {
+            if(card.number.toLowerCase() == number.toLowerCase()){
+                return {...card, balance: card.balance + montant}
+            }
+            return card;
+        })
+        console.log("\n    Balance de la carte mise à jour avec succès.\n")
+        showMenu();
+    }
+
 }
