@@ -1,5 +1,6 @@
 import readline from 'readline-sync';
 import { showMenu } from './menu.js';
+import { makeTransaction } from './transaction.js';
 
 let balance = 0;
 
@@ -19,6 +20,7 @@ export function withDraw() {
     } else {
         balance -= montant
         console.log(`\n  Retrait de ${montant} ariary effectué avec succès. \n`)
+        makeTransaction("retrait", montant)
         showMenu();
     }
 }
@@ -30,5 +32,7 @@ export function deposit() {
         deposit();
     }
     balance += montant;
+    console.log(`\n  Dépôt de ${montant} ariary effectué avec succès. \n`)
+    makeTransaction("dépôt", montant)
     showMenu();
 }
