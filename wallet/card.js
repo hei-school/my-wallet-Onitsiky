@@ -1,5 +1,6 @@
 import readline from 'readline-sync';
 import { showMenu } from './menu.js';
+import { makeTransaction } from './transaction.js';
 
 let cards = [];
 
@@ -83,7 +84,8 @@ function refillCard() {
             }
             return card;
         })
-        console.log("\n    Balance de la carte mise à jour avec succès.\n")
+        console.log("\n    Balance de la carte mise à jour avec succès.\n");
+        makeTransaction(`recharge sur la carte ${number}`, montant);
         showMenu();
     }
 
@@ -107,7 +109,8 @@ function debitCard() {
             }
             return card;
         })
-        console.log(`\n    Montant de ${montant} débitée avec succès.\n`)
+        console.log(`\n    Montant de ${montant} débitée avec succès.\n`);
+        makeTransaction(`retrait sur la carte ${number}`, montant);
         showMenu();
     }
 }
