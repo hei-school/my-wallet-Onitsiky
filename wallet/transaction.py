@@ -16,3 +16,17 @@ def make_transactions(type, amount):
 
 def get_transactions():
     return transactions
+
+def handle_trasaction():
+    trasaction_menu = "    Choisissez une action à faire: \n \     1. Voir la liste des transactions\n Votre choix: "
+    wrong_choice = "\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n"
+    valid_choices = [1]
+    choice = int(input(trasaction_menu))
+    if  choice not in valid_choices:
+        print(wrong_choice)
+        handle_trasaction()
+    elif choice == 1:
+        for item in transactions:
+            print(f"{item.display_transaction() }\n")
+        from menu import show_menu
+        show_menu()
