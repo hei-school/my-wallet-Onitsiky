@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Menu {
   public static final Scanner input = new Scanner(System.in);
 
-  private static final String invalidChoice = "\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n";
+  public static final String invalidChoice = "\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n";
 
   private static final List<Integer> validChoices = List.of(1,2,3,4,5);
   public static void showMenu(Integer balance) {
@@ -22,6 +22,8 @@ public class Menu {
           Cash.deposit();
         case 2:
           Cash.withDraw();
+        case 3:
+          Transaction.handleTransactions();
         case 5:
           System.out.println("Merci de votre confiance, à la prochaine !");
       }
