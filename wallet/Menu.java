@@ -24,8 +24,11 @@ public class Menu {
           Cash.withDraw();
         case 3:
           Transaction.handleTransactions();
+        case 4:
+          Card.handleCard();
         case 5:
           System.out.println("Merci de votre confiance, à la prochaine !");
+          break;
       }
     }
   }
