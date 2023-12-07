@@ -1,3 +1,5 @@
+from transaction import make_transactions
+
 balance = 0
 
 def get_balance():
@@ -12,6 +14,7 @@ def deposit():
     else:
         balance += amount
         print(f"\n  Dépôt de {amount} ariary effectué avec succès. \n")
+        make_transactions("depot", amount)
         from menu import show_menu
         show_menu()
 
@@ -28,5 +31,6 @@ def withdraw():
     else:
         balance -= amount
         print(f"\n  Retrait de {amount} ariary effectué avec succès. \n")
+        make_transactions("retrait", amount)
         from menu import show_menu
         show_menu()
