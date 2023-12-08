@@ -2,17 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Card {
+  public static List<Card> cards = new ArrayList<>();
   public String cardNumber;
   public String label;
   public Integer balance;
-
-  public String getCardNumber() {
-    return cardNumber;
-  }
-
-  public void setBalance(Integer balance) {
-    this.balance = balance;
-  }
 
   public Card(String cardNumber, String label, Integer balance) {
     this.cardNumber = cardNumber;
@@ -20,39 +13,37 @@ public class Card {
     this.balance = balance;
   }
 
-  @Override
-  public String toString() {
-    return "Carte: {" +
-        "nom: " + label + ", numero: " + cardNumber + ", solde: " + balance;
-  }
-
-  public static List<Card> cards = new ArrayList<>();
-
   public static List<Card> getCards() {
     return cards;
   }
 
-  public static void handleCard(){
-    String cardMenu = "    Choisissez une action à faire: \n      1. Ajouter une carte\n      2. Retirer une carte\n      3. Voir les cartes\n      4. Recharger une carte\n      5. Débiter une carte\n"
-        + "Votre choix: ";
-    List<Integer> validChoices = List.of(1,2,3,4,5);
+  public static void handleCard() {
+    String cardMenu =
+        "    Choisissez une action à faire: \n      1. Ajouter une carte\n      2. Retirer une carte\n      3. Voir les cartes\n      4. Recharger une carte\n      5. Débiter une carte\n"
+            + "Votre choix: ";
+    List<Integer> validChoices = List.of(1, 2, 3, 4, 5);
     System.out.println(cardMenu);
     Integer choice = Menu.input.nextInt();
-    if(!validChoices.contains(choice)) {
+    if (!validChoices.contains(choice)) {
       System.out.println(Menu.invalidChoice);
       handleCard();
     } else {
-      switch (choice){
+      switch (choice) {
         case 1:
           addCard();
+          break;
         case 2:
           removeCard();
+          break;
         case 3:
           listCard();
+          break;
         case 4:
           refillCard();
+          break;
         case 5:
           debitCard();
+          break;
       }
     }
   }
@@ -64,8 +55,9 @@ public class Card {
     int balance = Menu.input.nextInt();
     System.out.println("    Veuillez entrer le numéro de votre carte: ");
     String number = Menu.input.next();
-    if(balance <= 0) {
-      System.out.println("\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
+    if (balance <= 0) {
+      System.out.println(
+          "\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
       addCard();
     } else {
       cards.add(new Card(number, label, balance));
@@ -77,7 +69,7 @@ public class Card {
   public static void removeCard() {
     System.out.println("\n    Veuillez renseigner le numéro de carte à retirer: ");
     String number = Menu.input.nextLine();
-    if(!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
+    if (!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
       System.out.println("\n    La carte spécifiée n'existe pas.");
       removeCard();
     } else {
@@ -95,18 +87,19 @@ public class Card {
   public static void refillCard() {
     System.out.println("\n    Veuillez renseigner le numéro de votre carte: ");
     String number = Menu.input.next();
-    if(!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
+    if (!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
       System.out.println("\n    La carte spécifiée n'existe pas.");
       removeCard();
     }
     System.out.println("    Veuillez entrer le montant à ajouter: ");
     Integer montant = Menu.input.nextInt();
-    if(montant < 0 ) {
-      System.out.println("\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
+    if (montant < 0) {
+      System.out.println(
+          "\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
       refillCard();
     } else {
       cards = cards.stream().map(card -> {
-        if(card.getCardNumber().equals(number)) {
+        if (card.getCardNumber().equals(number)) {
           card.setBalance(card.balance + montant);
         }
         return card;
@@ -120,25 +113,41 @@ public class Card {
   public static void debitCard() {
     System.out.println("\n    Veuillez renseigner le numéro de votre carte: ");
     String number = Menu.input.next();
-    if(!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
+    if (!getCards().stream().anyMatch(card -> card.getCardNumber().equals(number))) {
       System.out.println("\n    La carte spécifiée n'existe pas.");
       debitCard();
     }
     System.out.println("    Veuillez entrer le montant à retirer: ");
     Integer montant = Menu.input.nextInt();
-    if(montant < 0 ) {
-      System.out.println("\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
+    if (montant < 0) {
+      System.out.println(
+          "\n  Le montant de votre retrait devrait-ếtre une valeur positive, différente de 0.\n");
       debitCard();
     } else {
       cards = cards.stream().map(card -> {
-        if(card.getCardNumber().equals(number)) {
+        if (card.getCardNumber().equals(number)) {
           card.setBalance(card.balance - montant);
         }
         return card;
       }).toList();
-      System.out.println("\n    Montant de " + montant +" débitée avec succès.\n");
+      System.out.println("\n    Montant de " + montant + " débitée avec succès.\n");
       Transaction.makeTransaction("retrait sur la carte " + number, montant);
       Menu.showMenu(Cash.getBalance());
     }
   }
+
+  public String getCardNumber() {
+    return cardNumber;
+  }
+
+  public void setBalance(Integer balance) {
+    this.balance = balance;
+  }
+
+  @Override
+  public String toString() {
+    return "Carte: {" +
+        "nom: " + label + ", numero: " + cardNumber + ", solde: " + balance;
+  }
+
 }
