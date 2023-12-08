@@ -1,36 +1,50 @@
-import readline from 'readline-sync';
-import { deposit, getBalance, withDraw } from './cash.js';
-import { handleTransactions } from './transaction.js';
-import { handleCards } from './card.js';
+import readline from 'readline-sync'
+import { deposit, getBalance, withDraw } from './cash.js'
+import { handleTransactions } from './transaction.js'
+import { handleCards } from './card.js'
 
-export function showMenu() {
-    const menu = `\n  Bienvenue sur My Wallet, votre application de gestion de porte-feuilles.\n    Votre solde actuel est de ${getBalance()} ariary.\n`+
-    "\    Choisissez une action à faire: \n \     1. Déposer de l'argent\n \     2. Retirer de l'argent \n \     3. Gérer les transactions \n \     4. Gérer les cartes \n" 
-    + "\      5. Quitter l'application \nVotre choix: "; 
+export function showMenu () {
+  const menu = `
+  Bienvenue sur My Wallet, votre application de gestion de porte-feuilles.
+  Votre solde actuel est de ${getBalance()} ariary.
+  Choisissez une action à faire:
+    1. Déposer de l'argent
+    2. Retirer de l'argent
+    3. Gérer les transactions
+    4. Gérer les cartes
+    5. Quitter l'application
 
-    const wrongChoice = "\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n"
+Votre choix: `
 
-    const validChoice = [1, 2, 3, 4, 5]
+  const wrongChoice = '\n Choix invalide. Veuillez choisir un choix parmi ceux mentionnés dans le menu.\n'
 
-    const choice = +readline.question(menu);
+  const validChoice = [1, 2, 3, 4, 5]
 
-    if (!validChoice.includes(choice)){
-        console.log(wrongChoice);
-        showMenu();
-    } else {
-        switch(choice) {
-            case 1:
-                deposit();
-            case 2:
-                withDraw();
-            case 3:
-                handleTransactions();
-            case 4:
-                handleCards();
-            case 5:
-                console.log("Merci de votre confiance, à la prochaine !");
-        }        
+  const choice = +readline.question(menu)
+
+  if (!validChoice.includes(choice)) {
+    console.log(wrongChoice)
+    showMenu()
+  } else {
+    switch (choice) {
+      case 1:
+        deposit()
+        break
+      case 2:
+        withDraw()
+        break
+      case 3:
+        handleTransactions()
+        break
+      case 4:
+        handleCards()
+        break
+      case 5:
+        console.log('Merci de votre confiance, à la prochaine !')
+        break
+      default:
+        console.log('Choix invalide.')
+        break
     }
+  }
 }
-
-showMenu();
