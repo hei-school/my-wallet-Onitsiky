@@ -159,7 +159,6 @@ func HandleCards() {
 	}
 }
 
-
 func AddCard() {
 	var number, name string
 	var balance int
@@ -179,7 +178,7 @@ func AddCard() {
 	} else {
 		cards = append(cards, Card{Number: number, Name: name, Balance: balance})
 		fmt.Println("\n  Carte ajoutée avec succès.\n")
-		ShowMenu() 
+		ShowMenu()
 	}
 }
 
@@ -308,7 +307,6 @@ func DebitCard() {
 }
 
 /*  Card actions  */
-
 
 func ShowMenu() {
 	menu := fmt.Sprintf("\n  Bienvenue sur My Wallet, votre application de gestion de porte-feuilles.\n"+
