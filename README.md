@@ -5,10 +5,10 @@ __Wallet__ is a program aimed at managing your personal wallet.
 
 It is implemented in several langages:
 
-- __Javascript__ : 
-- __Java__ :
-- __Python__ :
-- __Go__:
+- __Javascript__ : https://github.com/hei-school/my-wallet-Onitsiky/tree/feature/javascript#readme
+- __Python__     : https://github.com/hei-school/my-wallet-Onitsiky/tree/feature/python#readme
+- __Java__       : https://github.com/hei-school/my-wallet-Onitsiky/tree/feature/java#readme
+- __Go__         : https://github.com/hei-school/my-wallet-Onitsiky/tree/feature/go#readme
 
 ## Features :rocket:
 There are several actions you can make with this application:
